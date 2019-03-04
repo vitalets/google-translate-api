@@ -44,6 +44,7 @@ var langs = {
     'ht': 'Haitian Creole',
     'ha': 'Hausa',
     'haw': 'Hawaiian',
+    'he': 'Hebrew',
     'iw': 'Hebrew',
     'hi': 'Hindi',
     'hmn': 'Hmong',
