@@ -1,5 +1,6 @@
 var querystring = require('querystring');
 
+var url = require('url');
 var got = require('got');
 var token = require('@vitalets/google-translate-token');
 
@@ -46,7 +47,7 @@ function translate(text, opts) {
         };
         data[token.name] = token.value;
 
-        return url + '?' + querystring.stringify(data);
+        return url.resolve(token.url, '/translate_a/single?' + querystring.stringify(data));
     }).then(function (url) {
         return got(url).then(function (res) {
             var result = {
