@@ -31,6 +31,12 @@ test('translate from auto to dutch', async t => {
     t.false(res.from.text.didYouMean);
 });
 
+test('test pronunciation', async t => {
+    const res = await translate('translator', {from: 'auto', to: 'zh-CN'});
+
+    t.is(res.pronunciation, 'Fānyì zhě');
+});
+
 test('translate some english text setting the source language as portuguese', async t => {
     const res = await translate('translator', {from: 'pt', to: 'nl'});
 
@@ -80,6 +86,10 @@ test('get an unsupported language code by its name', t => {
 
 test('get a supported language code by code', t => {
     t.is(languages.getCode('en'), 'en');
+});
+
+test('get a supported language code by uppercase code', t => {
+    t.is(languages.getCode('EN'), 'en');
 });
 
 test('call getCode with \'undefined\'', t => {
