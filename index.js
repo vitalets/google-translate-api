@@ -83,7 +83,7 @@ function translate(text, opts) {
             body[0].forEach(function (obj) {
                 if (obj[0]) {
                     result.text += obj[0];
-                }else if (obj[2]) {
+                } else if (obj[2]) {
                     result.pronunciation += obj[2];
                 }
             });
@@ -123,5 +123,5 @@ function translate(text, opts) {
     });
 }
 
-translate.languages = languages;
 module.exports = translate;
+translate.languages = languages;
