@@ -123,5 +123,5 @@ function translate(text, opts) {
     });
 }
 
-module.exports = translate;
 translate.languages = languages;
+module.exports = translate;
