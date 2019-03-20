@@ -155,5 +155,6 @@ But to make it fit into the rocket that will send it into space, the mirror need
 Once in space, getting these mirrors to focus correctly on faraway galaxies will be a challenge, says Feinberg. It will take two months just to unfurl the telescope, cool it down and position all the segments correctly. "Aligning the primary mirror segments as though they are a single large mirror means each one needs to be aligned to 1/10,000th the thickness of a human hair. What's even more amazing is that the engineers and scientists working on the Webb telescope literally had to invent how to do this."
 `.trim();
     const res = await translate(text, {from: 'english', to: 'dutch'});
+
     t.truthy(res);
 });
