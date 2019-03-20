@@ -10,7 +10,7 @@ function translate(text, opts) {
 
     var e;
     [opts.from, opts.to].forEach(function (lang) {
-        if (lang && !languages.isSupported(lang)) {
+        if (lang && !translate.languages.isSupported(lang)) {
             e = new Error();
             e.code = 400;
             e.message = 'The language \'' + lang + '\' is not supported';
@@ -26,8 +26,8 @@ function translate(text, opts) {
     opts.to = opts.to || 'en';
     opts.tld = opts.tld || 'com';
 
-    opts.from = languages.getCode(opts.from);
-    opts.to = languages.getCode(opts.to);
+    opts.from = translate.languages.getCode(opts.from);
+    opts.to = translate.languages.getCode(opts.to);
 
     return token.get(text, {tld: opts.tld}).then(function (token) {
         var url = 'https://translate.google.' + opts.tld + '/translate_a/single';
@@ -60,6 +60,7 @@ function translate(text, opts) {
         return got.apply(got, url).then(function (res) {
             var result = {
                 text: '',
+                pronunciation: '',
                 from: {
                     language: {
                         didYouMean: false,
@@ -82,6 +83,8 @@ function translate(text, opts) {
             body[0].forEach(function (obj) {
                 if (obj[0]) {
                     result.text += obj[0];
+                }else if (obj[2]) {
+                    result.pronunciation += obj[2];
                 }
             });
 
@@ -121,4 +124,4 @@ function translate(text, opts) {
 }
 
 module.exports = translate;
-module.exports.languages = languages;
+translate.languages = languages;
