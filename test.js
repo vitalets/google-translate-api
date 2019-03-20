@@ -146,7 +146,7 @@ test('translate via custom tld', async t => {
     t.false(res.from.text.didYouMean);
 });
 
-test('translate long text over 2083 chars using any languages', async t => {
+test('translate long text over 2083 chars using any language', async t => {
     const text = `
 NASA is preparing to launch its best space telescope yet, and it will gaze at the stars through a golden mirror. It's not a single piece, but an array of 18 segments made of beryllium -- a rare metal that is both strong and light -- and coated with a microscopically thin layer of pure gold for maximum reflectivity. It spans a whopping 21 feet (6.5 meters) across.
 "A mirror this large has never before been launched into space," wrote Lee Feinberg, the Optical Telescope Element Manager for the James Webb Space Telescope at NASA, in an email interview.
