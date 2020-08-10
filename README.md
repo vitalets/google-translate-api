@@ -1,8 +1,8 @@
 # google-translate-api
-[![Build Status](https://travis-ci.org/vitalets/google-translate-api.svg?branch=master)](https://travis-ci.org/vitalets/google-translate-api)
+[![Build Status](https://travis-ci.com/Jajabenit250/google-translate-api.svg?branch=master)](https://travis-ci.com/Jajabenit250/google-translate-api)
 [![NPM version](https://img.shields.io/npm/v/@vitalets/google-translate-api.svg)](https://www.npmjs.com/package/@vitalets/google-translate-api)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
-[![Coverage Status](https://coveralls.io/repos/github/vitalets/google-translate-api/badge.svg?branch=master)](https://coveralls.io/github/vitalets/google-translate-api?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Jajabenit250/google-translate-api/badge.svg?branch=master)](https://coveralls.io/github/Jajabenit250/google-translate-api?branch=master)
 
 A **free** and **unlimited** API for Google Translate :dollar::no_entry_sign: for Node.js.
 
@@ -192,4 +192,4 @@ Otherwise, it will be an empty `string` (`''`).
 
 ## License
 
-MIT © [Matheus Fernandes](http://matheus.top), forked and maintained by [Vitaliy Potapov](https://github.com/vitalets).
+MIT © [Matheus Fernandes](http://matheus.top), forked and maintained by [Vitaliy Potapov](https://github.com/vitalets) forked and maintained by [Benit Havugimana](https://github.com/Jajabenit250).
