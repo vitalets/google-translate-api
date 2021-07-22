@@ -162,6 +162,11 @@ Type: `string` Default: `"com"`
 
 TLD for Google translate host to be used in API calls: `https://translate.google.{tld}`.
 
+##### hl
+Type: `string` Default: `"en-US"`
+
+Query parameter `hl` used in API calls. Translation result can depend to origin country
+
 #### gotOptions
 Type: `object`
 
