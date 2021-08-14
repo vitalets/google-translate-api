@@ -1,7 +1,7 @@
 {
-  "name": "@vitalets/google-translate-api",
-  "version": "7.0.0",
-  "description": "A free and unlimited API for Google Translate",
+  "name": "@asmagin/google-translate-api",
+  "version": "8.0.0",
+  "description": "A free and unlimited API for Google Translate (for Browser and Node.js)",
   "main": "index.js",
   "scripts": {
     "test": "xo && nyc ava",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vitalets/google-translate-api.git"
+    "url": "https://github.com/asmagin/google-translate-api.git"
   },
   "keywords": [
     "translate",
@@ -37,16 +37,16 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vitalets/google-translate-api/issues"
+    "url": "https://github.com/asmagin/google-translate-api/issues"
   },
-  "homepage": "https://github.com/vitalets/google-translate-api#readme",
+  "homepage": "https://github.com/asmagin/google-translate-api#readme",
   "dependencies": {
-    "configstore": "^5.0.1",
-    "got": "^9.6.0"
+    "axios": "^0.21.1"
   },
   "devDependencies": {
     "ava": "^3.15.0",
     "codecov": "^3.8.1",
+    "configstore": "^5.0.1",
     "coveralls": "^2.11.11",
     "husky": "^3.0.4",
     "nyc": "^15.1.0",

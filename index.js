@@ -1,12 +1,12 @@
 var querystring = require('querystring');
 
-var got = require('got');
+var axios = require('axios');
 
-var languages = require('./languages');
+var languages = require('./languages.js');
 
 function extract(key, res) {
     var re = new RegExp(`"${key}":".*?"`);
-    var result = re.exec(res.body);
+    var result = re.exec(res.data);
     if (result !== null) {
         return result[0].replace(`"${key}":"`, '').slice(0, -1);
     }
@@ -38,7 +38,7 @@ function translate(text, opts, gotopts) {
     opts.to = languages.getCode(opts.to);
 
     var url = 'https://translate.google.' + opts.tld;
-    return got(url, gotopts).then(function (res) {
+    return axios(url, gotopts).then(function (res) {
         var data = {
             'rpcids': 'MkEWBc',
             'f.sid': extract('FdrFJe', res),
@@ -53,12 +53,14 @@ function translate(text, opts, gotopts) {
 
         return data;
     }).then(function (data) {
-        url = url + '/_/TranslateWebserverUi/data/batchexecute?' + querystring.stringify(data);
-        gotopts.body = 'f.req=' + encodeURIComponent(JSON.stringify([[['MkEWBc', JSON.stringify([[text, opts.from, opts.to, true], [null]]), null, 'generic']]])) + '&';
+        gotopts.url = url + '/_/TranslateWebserverUi/data/batchexecute?' + querystring.stringify(data);
+        gotopts.data = 'f.req=' + encodeURIComponent(JSON.stringify([[['MkEWBc', JSON.stringify([[text, opts.from, opts.to, true], [null]]), null, 'generic']]])) + '&';
+        gotopts.headers = gotopts.headers || {};
         gotopts.headers['content-type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+        gotopts.method = 'post';
 
-        return got.post(url, gotopts).then(function (res) {
-            var json = res.body.slice(6);
+        return axios(gotopts).then(function (res) {
+            var json = res.data.slice(6);
             var length = '';
 
             var result = {

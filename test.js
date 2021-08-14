@@ -3,7 +3,7 @@ var Configstore = require('configstore');
 var languages = require('./languages.js');
 var translate = require('./index.js');
 
-const config = new Configstore('google-translate-api');
+var config = new Configstore('google-translate-api');
 
 test.beforeEach(() => {
     config.clear();
@@ -163,14 +163,12 @@ test('translate via an external language from outside of the API', async t => {
 test('pass got options', async t => {
     let a = 0;
     const gotopts = {
-        hooks: {
-            afterResponse: [
-                response => {
-                    a++;
-                    return response;
-                }
-            ]
-        }
+        transformResponse: [
+            response => {
+                a++;
+                return response;
+            }
+        ]
     };
     const res = await translate('vertaler', {}, gotopts);
 
