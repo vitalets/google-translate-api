@@ -17,8 +17,8 @@ function translate(text, opts, gotopts) {
     opts = opts || {};
     gotopts = gotopts || {};
     var e;
-    [opts.from, opts.to].forEach(function (lang) {
-        if (lang && !languages.isSupported(lang)) {
+    [[opts.from, opts.forceFrom], [opts.to, opts.forceTo]].forEach(function ([lang, force]) {
+        if (!force && lang && !languages.isSupported(lang)) {
             e = new Error();
             e.code = 400;
             e.message = 'The language \'' + lang + '\' is not supported';
@@ -31,12 +31,14 @@ function translate(text, opts, gotopts) {
     }
 
     opts.from = opts.from || 'auto';
+    opts.forceFrom = opts.forceFrom === undefined ? false : Boolean(opts.forceFrom);
     opts.to = opts.to || 'en';
+    opts.forceTo = opts.forceTo === undefined ? false : Boolean(opts.forceTo);
     opts.tld = opts.tld || 'com';
     opts.autoCorrect = opts.autoCorrect === undefined ? false : Boolean(opts.autoCorrect);
 
-    opts.from = languages.getCode(opts.from);
-    opts.to = languages.getCode(opts.to);
+    opts.from = opts.forceFrom ? opts.from : languages.getCode(opts.from);
+    opts.to = opts.forceTo ? opts.to : languages.getCode(opts.to);
 
     var url = 'https://translate.google.' + opts.tld;
 
