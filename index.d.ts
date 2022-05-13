@@ -92,6 +92,7 @@ declare namespace googleTranslateApi {
     kn = "Kannada",
     ko = "Korean",
     ku = "Kurdish (Kurmanji)",
+    ku = "Kurdish (Sorani)",
     ky = "Kyrgyz",
     la = "Latin",
     lb = "Luxembourgish",
