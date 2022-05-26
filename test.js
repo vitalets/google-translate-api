@@ -35,7 +35,7 @@ test('translate several sentences with spaces (#73)', async t => {
         {from: 'auto', to: 'nl'}
     );
 
-    t.is(res.text, 'vertaler, vertaler. vertaler! vertaler? Vertaler, vertaler.translator! Vertaler?');
+    t.is(res.text.toLowerCase(), 'vertaler, vertaler. vertaler! vertaler? vertaler, vertaler.translator! vertaler?');
 });
 
 test('test pronunciation', async t => {
