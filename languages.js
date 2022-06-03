@@ -61,6 +61,7 @@ var langs = {
     'km': 'Khmer',
     'ko': 'Korean',
     'ku': 'Kurdish (Kurmanji)',
+    'ckb': 'Kurdish (Sorani)',
     'ky': 'Kyrgyz',
     'lo': 'Lao',
     'la': 'Latin',
