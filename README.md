@@ -1,10 +1,9 @@
 # google-translate-api
-[![Actions Status](https://github.com/vitalets/google-translate-api/workflows/autotests/badge.svg)](https://github.com/vitalets/google-translate-api/actions)
-[![NPM version](https://img.shields.io/npm/v/@vitalets/google-translate-api.svg)](https://www.npmjs.com/package/@vitalets/google-translate-api)
+[![Actions Status](https://github.com/AidanWelch/google-translate-api/workflows/autotests/badge.svg)](https://github.com/AidanWelch/google-translate-api/actions)
+[![NPM version](https://img.shields.io/npm/v/google-translate-api-axios.svg)](https://www.npmjs.com/package/@vitalets/google-translate-api)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
-[![Coverage Status](https://coveralls.io/repos/github/vitalets/google-translate-api/badge.svg?branch=master)](https://coveralls.io/github/vitalets/google-translate-api?branch=master)
 
-A **free** and **unlimited** API for Google Translate :dollar: :no_entry_sign: for Node.js.
+A **free** and **unlimited** API for Google Translate :dollar: :no_entry_sign: written with compatibility in mind, supported by Axios.
 
 ## Features 
 
@@ -12,20 +11,10 @@ A **free** and **unlimited** API for Google Translate :dollar: :no_entry_sign: f
 - Spelling correction
 - Language correction 
 - Fast and reliable – it uses the same servers that [translate.google.com](https://translate.google.com) uses
+- Wide compatibility through using Axios for requests
 
 ## Why this fork?
-This fork of original [matheuss/google-translate-api](https://github.com/matheuss/google-translate-api) contains several improvements:
-
-- New option `client="t|gtx"`. Setting `client="gtx"` seems to work even with outdated token, see [this discussion](https://github.com/matheuss/google-translate-api/issues/79#issuecomment-425679193) for details
-- Fixed extraction of TKK ceed from current `https://translate.google.com` sources (via [@vitalets/google-translate-token](https://github.com/vitalets/google-translate-token))
-- Removed unsecure `unsafe-eval` dependency (See [#2](https://github.com/vitalets/google-translate-api/pull/2))
-- Added [daily CI tests](https://travis-ci.org/vitalets/google-translate-api/builds) to get notified if Google API changes
-- Added support for custom `tld` (especially to support `translate.google.cn`, see [#7](https://github.com/vitalets/google-translate-api/pull/7))
-- Added support for outputting pronunciation (see [#17](https://github.com/vitalets/google-translate-api/pull/17))
-- Added support for custom [got](https://github.com/sindresorhus/got) options. It allows to use proxy and bypass request limits (see [#25](https://github.com/vitalets/google-translate-api/pull/25))
-- Added support for language extensions from outside of the API (see [#18](https://github.com/vitalets/google-translate-api/pull/18))
-- Added TypeScript definitions (see [#50](https://github.com/vitalets/google-translate-api/pull/50), thanks to [@olavoparno](https://github.com/olavoparno))
-- Migrated to Google's latest batch-style RPC API (see [#60](https://github.com/vitalets/google-translate-api/pull/60), thanks to [@vkedwardli](https://github.com/vkedwardli))
+This fork of a fork [vitalets/google-translate-api](https://github.com/vitalets/google-translate-api) contains several improvements with the primary change being it is written using Axios instead of Got, allowing for greater compatibility outside of Node.js.  It also abandons the outdated `querystring`.
 
 ## Install 
 
@@ -38,7 +27,7 @@ npm install @vitalets/google-translate-api
 From automatic language detection to English:
 
 ```js
-const translate = require('@vitalets/google-translate-api');
+const translate = require('google-translate-api-axios');
 
 const res = await translate('Ik spreek Engels', {to: 'en'});
 
@@ -71,7 +60,7 @@ console.log(finalRes.text); // => 'Ik spreek Nederlands!'
 
 You can also add languages in the code and use them in the translation:
 ``` js
-translate = require('google-translate-api');
+translate = require('google-translate-api-axios');
 translate.languages['sr-Latn'] = 'Serbian Latin';
 
 translate('translator', {to: 'sr-Latn'}).then(res => ...);
@@ -99,11 +88,11 @@ translate('Ik spreek Engels', {to: 'en'}, {
 ```
 
 ## Does it work from web page context?
-No. `https://translate.google.com` does not provide [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) http headers allowing access from other domains.
+It can, sort of. `https://translate.google.com` does not provide [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) http headers allowing access from other domains.  However, this fork is written using Axios, allowing contexts that don't request CORS access, such as a browser extension background script or React Native.
 
 ## API
 
-### translate(text, [options], [gotOptions])
+### translate(text, [options], [axiosconfig])
 
 #### text
 
@@ -140,10 +129,10 @@ Type: `string` Default: `"com"`
 
 TLD for Google translate host to be used in API calls: `https://translate.google.{tld}`.
 
-#### gotOptions
+#### axiosconfig
 Type: `object`
 
-The got options: https://github.com/sindresorhus/got#options
+The axios request config: https://axios-http.com/docs/req_config
 
 ### Returns an `object`:
 - `text` *(string)* – The translated text.
@@ -174,4 +163,4 @@ Otherwise, it will be an empty `string` (`''`).
 
 ## License
 
-MIT © [Matheus Fernandes](http://matheus.top), forked and maintained by [Vitaliy Potapov](https://github.com/vitalets).
+MIT © [Matheus Fernandes](http://matheus.top), forked and maintained by [Aidan Welch](https://github.com/AidanWelch).
