@@ -1,13 +1,7 @@
 var test = require('ava');
-var Configstore = require('configstore');
 var languages = require('./languages.js');
 var translate = require('./index.js');
 
-const config = new Configstore('google-translate-api');
-
-test.beforeEach(() => {
-    config.clear();
-});
 
 test('translate without any options', async t => {
     const res = await translate('vertaler');
