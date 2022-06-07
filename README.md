@@ -1,6 +1,6 @@
-# google-translate-api
+# google-translate-api-axios
 [![Actions Status](https://github.com/AidanWelch/google-translate-api/workflows/autotests/badge.svg)](https://github.com/AidanWelch/google-translate-api/actions)
-[![NPM version](https://img.shields.io/npm/v/google-translate-api-axios.svg)](https://www.npmjs.com/package/@vitalets/google-translate-api)
+[![NPM version](https://img.shields.io/npm/v/google-translate-api-axios.svg)](https://www.npmjs.com/package/google-translate-api-axios)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 
 A **free** and **unlimited** API for Google Translate :dollar: :no_entry_sign: written with compatibility in mind, supported by Axios.
@@ -19,7 +19,7 @@ This fork of a fork [vitalets/google-translate-api](https://github.com/vitalets/
 ## Install 
 
 ```
-npm install @vitalets/google-translate-api
+npm install google-translate-api-axios
 ```
 
 ## Usage
