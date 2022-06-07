@@ -1,5 +1,5 @@
 {
-  "name": "@vitalets/google-translate-api",
+  "name": "google-translate-api-axios",
   "version": "8.0.0",
   "description": "A free and unlimited API for Google Translate",
   "main": "index.js",
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vitalets/google-translate-api.git"
+    "url": "https://github.com/AidanWelch/google-translate-api.git"
   },
   "keywords": [
     "translate",
@@ -36,9 +36,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vitalets/google-translate-api/issues"
+    "url": "https://github.com/AidanWelch/google-translate-api/issues"
   },
-  "homepage": "https://github.com/vitalets/google-translate-api#readme",
+  "homepage": "https://github.com/AidanWelch/google-translate-api#readme",
   "dependencies": {
     "axios": "^0.27.2",
     "configstore": "^5.0.1",
@@ -57,6 +57,9 @@
     "space": 4,
     "parserOptions": {
       "ecmaScript": 7
+    },
+    "rules": {
+      "no-undef": "warn"
     }
   }
 }
