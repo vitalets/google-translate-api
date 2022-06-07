@@ -168,7 +168,7 @@ test('pass axios options', async t => {
             }
         ]
     };
-    const res = await translate('vertaler', {}, {}, axiosconfig);
+    const res = await translate('vertaler', {}, axiosconfig);
 
     t.is(res.text, 'translator');
     t.is(a, 2);
