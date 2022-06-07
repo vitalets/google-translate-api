@@ -158,19 +158,17 @@ test('translate via an external language from outside of the API', async t => {
     t.is(res.from.language.iso, 'en');
 });
 
-test('pass got options', async t => {
+test('pass axios options', async t => {
     let a = 0;
-    const gotopts = {
-        hooks: {
-            afterResponse: [
-                response => {
-                    a++;
-                    return response;
-                }
-            ]
-        }
+    const axiosconfig = {
+        transformResponse: [
+            response => {
+                a++;
+                return response;
+            }
+        ]
     };
-    const res = await translate('vertaler', {}, gotopts);
+    const res = await translate('vertaler', {}, {}, axiosconfig);
 
     t.is(res.text, 'translator');
     t.is(a, 2);
