@@ -1,6 +1,4 @@
-var querystring = require('querystring');
-
-var got = require('got');
+var axios = require('axios');
 
 var languages = require('./languages');
 
@@ -13,9 +11,9 @@ function extract(key, res) {
     return '';
 }
 
-function translate(text, opts, gotopts) {
+function translate(text, opts, axiosconfig) {
     opts = opts || {};
-    gotopts = gotopts || {};
+    axiosconfig = axiosconfig || {};
     var e;
     [opts.from, opts.to].forEach(function (lang) {
         if (lang && !languages.isSupported(lang)) {
@@ -40,17 +38,20 @@ function translate(text, opts, gotopts) {
 
     var url = 'https://translate.google.' + opts.tld;
 
+    axiosconfig.method = 'GET';
+    axiosconfig.url = url;
+
     // according to translate.google.com constant rpcids seems to have different values with different POST body format.
     // * MkEWBc - returns translation
     // * AVdN8 - return suggest
     // * exi25c - return some technical info
     var rpcids = 'MkEWBc';
-    return got(url, gotopts).then(function (res) {
+    return axios(axiosconfig).then(function (res) {
         var data = {
             'rpcids': rpcids,
             'source-path': '/',
-            'f.sid': extract('FdrFJe', res),
-            'bl': extract('cfb2h', res),
+            'f.sid': extract('FdrFJe', res.data),
+            'bl': extract('cfb2h', res.data),
             'hl': 'en-US',
             'soc-app': 1,
             'soc-platform': 1,
@@ -61,14 +62,18 @@ function translate(text, opts, gotopts) {
 
         return data;
     }).then(function (data) {
-        url = url + '/_/TranslateWebserverUi/data/batchexecute?' + querystring.stringify(data);
         // === format for freq below is only for rpcids = MkEWBc ===
         var freq = [[[rpcids, JSON.stringify([[text, opts.from, opts.to, opts.autoCorrect], [null]]), null, 'generic']]];
-        gotopts.body = 'f.req=' + encodeURIComponent(JSON.stringify(freq)) + '&';
-        gotopts.headers['content-type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+        axiosconfig.data = 'f.req=' + encodeURIComponent(JSON.stringify(freq)) + '&';
+        const queryParams = new URLSearchParams(data);
 
-        return got.post(url, gotopts).then(function (res) {
-            var json = res.body.slice(6);
+        axiosconfig.url = url + '/_/TranslateWebserverUi/data/batchexecute?' + queryParams.toString();
+        axiosconfig.method = 'POST';
+        axiosconfig.headers = axiosconfig.headers || {};
+        axiosconfig.headers['content-type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+
+        return axios(axiosconfig).then(function (res) {
+            var json = res.data.slice(6);
             var length = '';
 
             var result = {

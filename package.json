@@ -40,6 +40,7 @@
   },
   "homepage": "https://github.com/vitalets/google-translate-api#readme",
   "dependencies": {
+    "axios": "^0.27.2",
     "configstore": "^5.0.1",
     "got": "^9.6.0"
   },

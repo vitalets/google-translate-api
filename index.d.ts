@@ -1,11 +1,11 @@
-import got from 'got';
+import { AxiosRequestConfig } from 'axios';
 
 export = googleTranslateApi;
 
 declare function googleTranslateApi(
   query: string,
   opts?: googleTranslateApi.IOptions,
-  gotopts?: got.GotOptions<any>,
+  axiosconfig?: AxiosRequestConfig<any>,
 ): Promise<googleTranslateApi.ITranslateResponse>;
 
 declare namespace googleTranslateApi {
