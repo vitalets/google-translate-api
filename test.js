@@ -2,7 +2,6 @@ var test = require('ava');
 var languages = require('./languages.js');
 var translate = require('./index.js');
 
-
 test('translate without any options', async t => {
     const res = await translate('vertaler');
 
