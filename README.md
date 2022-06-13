@@ -1,9 +1,9 @@
-# google-translate-api-axios
+# google-translate-api-fetch
 [![Actions Status](https://github.com/AidanWelch/google-translate-api/workflows/autotests/badge.svg)](https://github.com/AidanWelch/google-translate-api/actions)
-[![NPM version](https://img.shields.io/npm/v/google-translate-api-axios.svg)](https://www.npmjs.com/package/google-translate-api-axios)
+[![NPM version](https://img.shields.io/npm/v/google-translate-api-Fetch.svg)](https://www.npmjs.com/package/google-translate-api-Fetch)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 
-A **free** and **unlimited** API for Google Translate :dollar: :no_entry_sign: written with compatibility in mind, supported by Axios.
+A **free** and **unlimited** API for Google Translate :dollar: :no_entry_sign: written with compatibility in mind, supported by Fetch.
 
 ## Features 
 
@@ -11,15 +11,15 @@ A **free** and **unlimited** API for Google Translate :dollar: :no_entry_sign: w
 - Spelling correction
 - Language correction 
 - Fast and reliable – it uses the same servers that [translate.google.com](https://translate.google.com) uses
-- Wide compatibility through using Axios for requests
+- Wide compatibility through using Fetch for requests
 
 ## Why this fork?
-This fork of a fork [vitalets/google-translate-api](https://github.com/vitalets/google-translate-api) contains several improvements with the primary change being it is written using Axios instead of Got, allowing for greater compatibility outside of Node.js.  It also abandons the outdated `querystring`.
+This fork of a fork [vitalets/google-translate-api](https://github.com/vitalets/google-translate-api) contains several improvements with the primary change being it is written using Fetch instead of Got, allowing for greater compatibility outside of Node.js.  It also abandons the outdated `querystring`.
 
 ## Install 
 
 ```
-npm install google-translate-api-axios
+npm install google-translate-api-Fetch
 ```
 
 ## Usage
@@ -27,7 +27,7 @@ npm install google-translate-api-axios
 From automatic language detection to English:
 
 ```js
-const translate = require('google-translate-api-axios');
+const translate = require('google-translate-api-fetch');
 
 const res = await translate('Ik spreek Engels', {to: 'en'});
 
@@ -60,7 +60,7 @@ console.log(finalRes.text); // => 'Ik spreek Nederlands!'
 
 You can also add languages in the code and use them in the translation:
 ``` js
-translate = require('google-translate-api-axios');
+translate = require('google-translate-api-fetch');
 translate.languages['sr-Latn'] = 'Serbian Latin';
 
 translate('translator', {to: 'sr-Latn'}).then(res => ...);
@@ -88,11 +88,11 @@ translate('Ik spreek Engels', {to: 'en'}, {
 ```
 
 ## Does it work from web page context?
-It can, sort of. `https://translate.google.com` does not provide [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) http headers allowing access from other domains.  However, this fork is written using Axios, allowing contexts that don't request CORS access, such as a browser extension background script or React Native.
+It can, sort of. `https://translate.google.com` does not provide [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) http headers allowing access from other domains.  However, this fork is written using Fetch, allowing contexts that don't request CORS access, such as a browser extension background script or React Native.
 
 ## API
 
-### translate(text, [options], [axiosconfig])
+### translate(text, [options], [fetchconfig])
 
 #### text
 
@@ -129,10 +129,10 @@ Type: `string` Default: `"com"`
 
 TLD for Google translate host to be used in API calls: `https://translate.google.{tld}`.
 
-#### axiosconfig
+#### fetchinit
 Type: `object`
 
-The axios request config: https://axios-http.com/docs/req_config
+The Fetch request init: https://developer.mozilla.org/en-US/docs/Web/API/fetch
 
 ### Returns an `object`:
 - `text` *(string)* – The translated text.
