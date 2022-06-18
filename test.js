@@ -151,20 +151,18 @@ test('translate via an external language from outside of the API', async t => {
     t.is(res.from.language.iso, 'en');
 });
 
-test('pass axios options', async t => {
-    let a = 0;
-    const axiosconfig = {
-        transformResponse: [
-            response => {
-                a++;
-                return response;
-            }
-        ]
+test('pass fetch init', async t => {
+    const abortController = new AbortController();
+    const fetchinit = {
+        signal: abortController.signal
     };
-    const res = await translate('vertaler', {}, axiosconfig);
-
-    t.is(res.text, 'translator');
-    t.is(a, 2);
+    try {
+        const translation = translate('vertaler', {}, fetchinit);
+        abortController.abort();
+        await translation;
+    } catch (err) {
+        t.is(err.name, 'AbortError');
+    }
 });
 
 test('test get zh code', t => {
