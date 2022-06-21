@@ -1,3 +1,12 @@
+let axios;
+try {
+    axios = require('axios');
+} catch (err) {
+    if (fetch === undefined) {
+        throw new Error('Neither Fetch nor Axios are accessible!');
+    }
+}
+
 var languages = require('./languages');
 
 function extract(key, res) {
@@ -9,9 +18,9 @@ function extract(key, res) {
     return '';
 }
 
-function translate(text, opts, fetchinit) {
+function translate(text, opts, requestOptions) {
     opts = opts || {};
-    fetchinit = fetchinit || {};
+    requestOptions = requestOptions || {};
     var e;
     [opts.from, opts.to].forEach(function (lang) {
         if (lang && !languages.isSupported(lang)) {
@@ -20,6 +29,36 @@ function translate(text, opts, fetchinit) {
             e.message = 'The language \'' + lang + '\' is not supported';
         }
     });
+
+    let requestFunction;
+    opts.requestFunction = typeof opts.requestFunction === 'string' ? opts.requestFunction.toLowerCase() : opts.requestFunction;
+    if ((opts.requestFunction === 'fetch' || opts.requestFunction === undefined) && fetch !== undefined) {
+        requestFunction = function (url, requestOptions, body) {
+            const fetchinit = {
+                ...requestOptions,
+                headers: new Headers(requestOptions.headers),
+                credentials: requestOptions.credentials || 'omit',
+                body: body
+            };
+            return fetch(url, fetchinit).then(res => res.text());
+        };
+    } else if ((opts.requestFunction === 'axios' || opts.requestFunction === undefined) && axios !== undefined) {
+        requestFunction = function (url, requestOptions, body) {
+            const axiosconfig = {
+                ...requestOptions,
+                url: url,
+                data: body
+            };
+            return axios(axiosconfig).then(res => res.data);
+        };
+    } else if (typeof opts.requestFunction === 'string') {
+        e = new Error();
+        e.code = 400;
+        e.message = opts.requestFunction + ' was not found';
+    } else {
+        requestFunction = opts.requestFunction;
+    }
+
     if (e) {
         return new Promise(function (resolve, reject) {
             reject(e);
@@ -36,15 +75,14 @@ function translate(text, opts, fetchinit) {
 
     var url = 'https://translate.google.' + opts.tld;
 
-    fetchinit.method = 'GET';
-    fetchinit.headers = fetchinit.headers === undefined ? new Headers() : new Headers(fetchinit.headers);
+    requestOptions.method = 'GET';
 
     // according to translate.google.com constant rpcids seems to have different values with different POST body format.
     // * MkEWBc - returns translation
     // * AVdN8 - return suggest
     // * exi25c - return some technical info
     var rpcids = 'MkEWBc';
-    return fetch(url, fetchinit).then(res => res.text()).then(function (res) {
+    return requestFunction(url, requestOptions).then(function (res) {
         var data = {
             'rpcids': rpcids,
             'source-path': '/',
@@ -62,15 +100,17 @@ function translate(text, opts, fetchinit) {
     }).then(function (data) {
         // === format for freq below is only for rpcids = MkEWBc ===
         var freq = [[[rpcids, JSON.stringify([[text, opts.from, opts.to, opts.autoCorrect], [null]]), null, 'generic']]];
-        fetchinit.body = 'f.req=' + encodeURIComponent(JSON.stringify(freq)) + '&';
+        const body = 'f.req=' + encodeURIComponent(JSON.stringify(freq)) + '&';
         const queryParams = new URLSearchParams(data);
 
         url = url + '/_/TranslateWebserverUi/data/batchexecute?' + queryParams.toString();
-        fetchinit.method = 'POST';
-        fetchinit.headers.append('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
-        fetchinit.credentials = 'omit';
+        requestOptions.method = 'POST';
+        requestOptions.headers = {
+            ...requestOptions.headers,
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        };
 
-        return fetch(url, fetchinit).then(res => res.text()).then(function (res) {
+        return requestFunction(url, requestOptions, body).then(function (res) {
             var json = res.slice(6);
             var length = '';
 

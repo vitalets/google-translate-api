@@ -1,5 +1,5 @@
 {
-  "name": "google-translate-api-fetch",
+  "name": "google-translate-api-x",
   "version": "9.0.1",
   "description": "A free and unlimited API for Google Translate",
   "main": "index.js",
@@ -56,5 +56,8 @@
     "rules": {
       "no-undef": "warn"
     }
+  },
+  "optionalDependencies": {
+    "axios": "^0.27.2"
   }
 }
