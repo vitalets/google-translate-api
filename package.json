@@ -1,6 +1,6 @@
 {
   "name": "google-translate-api-x",
-  "version": "9.0.1",
+  "version": "10.0.0",
   "description": "A free and unlimited API for Google Translate",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,13 @@
     "translate",
     "api",
     "free",
-    "language"
+    "language",
+    "crossplatform",
+    "axios",
+    "fetch",
+    "react",
+    "extension",
+    "web"
   ],
   "author": {
     "name": "Matheus Fernandes",

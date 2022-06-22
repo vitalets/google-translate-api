@@ -1,11 +1,9 @@
-import { AxiosRequestConfig } from 'axios';
-
 export = googleTranslateApi;
 
 declare function googleTranslateApi(
   query: string,
   opts?: googleTranslateApi.IOptions,
-  axiosconfig?: AxiosRequestConfig<any>,
+  requestOptions?: AxiosRequestConfig<any> | object,
 ): Promise<googleTranslateApi.ITranslateResponse>;
 
 declare namespace googleTranslateApi {
@@ -14,6 +12,7 @@ declare namespace googleTranslateApi {
     to?: string;
     tld?: string;
     autoCorrect?: boolean;
+    requestFunction?: fuction | string;
   }
 
   export interface ITranslateLanguage {
