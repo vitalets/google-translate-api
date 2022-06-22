@@ -1,12 +1,7 @@
 let axios;
 try {
     axios = require('axios');
-} catch (err) {
-    if (fetch === undefined) {
-        throw new Error('Neither Fetch nor Axios are accessible!');
-    }
-}
-
+} catch (err) {}
 var languages = require('./languages');
 
 function extract(key, res) {
@@ -51,10 +46,10 @@ function translate(text, opts, requestOptions) {
             };
             return axios(axiosconfig).then(res => res.data);
         };
-    } else if (typeof opts.requestFunction === 'string') {
+    } else if (typeof opts.requestFunction === 'string' || opts.requestFunction === undefined) {
         e = new Error();
         e.code = 400;
-        e.message = opts.requestFunction + ' was not found';
+        e.message = (opts.requestFunction || 'Axios and Fetch') + ' was not found';
     } else {
         requestFunction = opts.requestFunction;
     }
