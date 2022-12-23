@@ -1,5 +1,3 @@
-import { RequestInit } from 'node-fetch';
-
 export interface TranslateOptions {
   from?: string;
   to?: string;
@@ -20,7 +18,7 @@ export interface RawResponse {
     srclangs: string[];
     srclangs_confidences: number[];
     extended_srclangs: string[];
-  }
+  };
 }
 
 export interface Sentence {

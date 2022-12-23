@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { translate } from '../src/index.js';
+import { translate } from '../src/node';
 
 type Assert = typeof assert.strict;
 type TranslateFn = typeof translate;
