@@ -63,7 +63,7 @@ export class Translator {
   }
 
   protected buildResText({ sentences }: RawResponse) {
-    return sentences
+    return (sentences || [])
       .filter((s): s is Sentence => 'trans' in s)
       .map(s => s.trans)
       .join('');
