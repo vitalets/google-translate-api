@@ -3,10 +3,10 @@
  * Use anonymous proxies with 'yes' in Google column.
  *
  * Usage:
- * npx ts-node-esm examples/with-proxy.ts <PROXY>
+ * node --loader ts-node/esm examples/with-proxy.ts <PROXY>
  *
  * Example:
- * npx ts-node-esm examples/with-proxy.ts 8.210.83.33:80
+ * node --loader ts-node/esm examples/with-proxy.ts 8.210.83.33:80
  */
 import { RequestInit } from 'node-fetch';
 import { HttpProxyAgent } from 'http-proxy-agent';
