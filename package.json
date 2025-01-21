@@ -54,6 +54,9 @@
     "type": "git",
     "url": "https://github.com/vitalets/google-translate-api.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "translate",
     "translator",
