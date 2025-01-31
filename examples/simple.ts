@@ -2,15 +2,17 @@
  * Simple translation example.
  *
  * Usage:
- * node --loader ts-node/esm examples/simple.ts
+ * npx tsx examples/simple.ts
  */
 
 import { translate } from '../src/index.js';
 
-translateSimple('Ich muss Deutsch lernen!');
+translateSimple('How was work today?');
 
 async function translateSimple(sourceText: string) {
   console.log(`Translating: ${sourceText}`);
-  const { text } = await translate(sourceText);
+  const { text, raw } = await translate(sourceText, { to: 'ru' });
   console.log(`Result: ${text}`);
+  console.log(`Raw response:`);
+  console.dir(raw, { depth: null });
 }
