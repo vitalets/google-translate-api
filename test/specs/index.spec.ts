@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { HttpProxyAgent } from 'http-proxy-agent';
 import { extractTooManyRequestsInfo } from '../../src/helpers.js';
+import { Sentence } from '../../src/types.js';
 
 it('translate to en', async () => {
   const { text, raw } = await translate('Привет, мир! Как дела?', { to: 'en' });
@@ -26,10 +27,11 @@ it('translate between non-en', async () => {
   const { text, raw } = await translate('你好！你好吗？', { to: 'ru' });
   assert.equal(text, 'Привет! Ты в порядке?');
   assert.equal(raw.src, 'zh-CN');
-  assert.equal(raw.sentences.length, 3);
-  assert.deepEqual(raw.sentences.slice(-1), [
+  assert.equal(raw.sentences.length, 2);
+  assert.equal((raw.sentences[0] as Sentence).trans, 'Привет! Ты в порядке?');
+  assert.deepEqual(raw.sentences[1], 
     { src_translit: 'Nǐ hǎo! Nǐ hǎo ma?', translit: 'Privet! Ty v poryadke?' }
-  ]);
+  );
 });
 
 it('invalid host', async () => {
